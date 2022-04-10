@@ -1,0 +1,13 @@
+﻿{
+  "profiles": {
+    "Dwapi.Prep": {
+      "commandName": "Project",
+      "dotnetRunMessages": "true",
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:8783/swagger;http://localhost:8787/swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
