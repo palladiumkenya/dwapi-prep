@@ -110,11 +110,24 @@ namespace Dwapi.Prep
             app.UseRouting();
 
             app.UseSwagger();
-            app.UseSwaggerUI(c =>
+            if (env.IsDevelopment())
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "DWAPI Central PREP API");
-                //c.SupportedSubmitMethods(new Swashbuckle.AspNetCore.SwaggerUI.SubmitMethod[] { });
-            });
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "DWAPI Central PREP API");
+                    //c.SupportedSubmitMethods(new Swashbuckle.AspNetCore.SwaggerUI.SubmitMethod[] { });
+                });
+            }
+            else
+            {
+                app.UseSwaggerUI(c =>
+                {
+                    // Check if it NOT IIS c.SwaggerEndpoint("/swagger/v1/swagger.json", "DWAPI Central PREP API");
+                    c.SwaggerEndpoint("../swagger/v1/swagger.json", "DWAPI Central PREP API");
+                    c.SupportedSubmitMethods(new Swashbuckle.AspNetCore.SwaggerUI.SubmitMethod[] { });
+                });
+            }
+           
 
             app.UseEndpoints(endpoints =>
             {
