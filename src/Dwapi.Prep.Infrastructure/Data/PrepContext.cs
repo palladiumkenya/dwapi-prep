@@ -50,11 +50,13 @@ namespace Dwapi.Prep.Infrastructure.Data
         public override void EnsureSeeded()
         {
             Log.Debug("seeding...");
+            /*
             if (!MasterFacilities.Any())
             {
                 var data = SeedDataReader.ReadCsv<MasterFacility>(typeof(PrepContext).Assembly,"Seed","|");
                 MasterFacilities.AddRange(data);
             }
+            */
 
             if (!Dockets.Any())
             {

@@ -394,13 +394,7 @@ namespace Dwapi.Prep.Infrastructure.Migrations
                     b.Property<string>("Emr")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("FacilityID")
-                        .HasColumnType("int");
-
                     b.Property<Guid>("FacilityId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("FacilityId1")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("FacilityName")
@@ -441,7 +435,7 @@ namespace Dwapi.Prep.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FacilityId1");
+                    b.HasIndex("FacilityId");
 
                     b.ToTable("PrepAdverseEvents");
                 });
@@ -749,13 +743,7 @@ namespace Dwapi.Prep.Infrastructure.Migrations
                     b.Property<string>("Emr")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("FacilityID")
-                        .HasColumnType("int");
-
                     b.Property<Guid>("FacilityId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("FacilityId1")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("FacilityName")
@@ -799,7 +787,7 @@ namespace Dwapi.Prep.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FacilityId1");
+                    b.HasIndex("FacilityId");
 
                     b.ToTable("PrepPharmacys");
                 });
@@ -1072,7 +1060,9 @@ namespace Dwapi.Prep.Infrastructure.Migrations
                 {
                     b.HasOne("Dwapi.Prep.Core.Domain.Facility", null)
                         .WithMany("PrepAdverseEvents")
-                        .HasForeignKey("FacilityId1");
+                        .HasForeignKey("FacilityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Dwapi.Prep.Core.Domain.PrepBehaviourRisk", b =>
@@ -1106,7 +1096,9 @@ namespace Dwapi.Prep.Infrastructure.Migrations
                 {
                     b.HasOne("Dwapi.Prep.Core.Domain.Facility", null)
                         .WithMany("PrepPharmacys")
-                        .HasForeignKey("FacilityId1");
+                        .HasForeignKey("FacilityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Dwapi.Prep.Core.Domain.PrepVisit", b =>

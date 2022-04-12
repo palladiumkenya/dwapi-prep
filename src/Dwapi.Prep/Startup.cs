@@ -135,7 +135,7 @@ namespace Dwapi.Prep
             {
                 app.UseHangfireDashboard();
 
-                var options = new BackgroundJobServerOptions {ServerName  = "DWAPIMNCHMAIN",WorkerCount = 1 };
+                var options = new BackgroundJobServerOptions {ServerName  = "DWAPIPREPMAIN",WorkerCount = 1 };
                 app.UseHangfireServer(options);
                 GlobalJobFilters.Filters.Add(new ProlongExpirationTimeAttribute());
                 GlobalJobFilters.Filters.Add(new AutomaticRetryAttribute() { Attempts = 3 });

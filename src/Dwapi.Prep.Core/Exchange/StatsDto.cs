@@ -13,7 +13,7 @@ namespace Dwapi.Prep.Core.Exchange
         public StatsDto(int facilityCode, DateTime updated)
         {
             FacilityCode = facilityCode;
-            Docket = new DocketDto("MNCH");
+            Docket = new DocketDto("PREP");
             Updated = updated;
         }
 

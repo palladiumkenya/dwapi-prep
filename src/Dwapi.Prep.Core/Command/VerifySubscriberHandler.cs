@@ -14,7 +14,7 @@ namespace Dwapi.Prep.Core.Command
         public string SubscriberId { get; }
         public string AuthToken { get; }
 
-        public VerifySubscriber(string subscriberId, string authToken, string docketId = "MNCH")
+        public VerifySubscriber(string subscriberId, string authToken, string docketId = "PREP")
         {
             DocketId = docketId;
             SubscriberId = subscriberId;

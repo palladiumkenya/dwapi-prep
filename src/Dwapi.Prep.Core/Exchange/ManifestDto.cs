@@ -28,7 +28,7 @@ namespace Dwapi.Prep.Core.Exchange
             Id = manifest.Id;
             FacilityCode = manifest.SiteCode;
             FacilityName = manifest.Name;
-            Docket = "MNCH";
+            Docket = "PREP";
             LogDate = manifest.DateLogged;
             BuildDate = manifest.DateArrived;
             PatientCount = count;

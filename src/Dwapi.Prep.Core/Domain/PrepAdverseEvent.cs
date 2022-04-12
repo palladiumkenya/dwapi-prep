@@ -18,7 +18,6 @@ namespace Dwapi.Prep.Core.Domain
         public Guid FacilityId { get; set; }
         public string FacilityName { get; set; }
         public string PrepNumber { get; set; }
-        public int? FacilityID { get; set; }
         public string AdverseEvent { get; set; }
         public DateTime? AdverseEventStartDate { get; set; }
         public DateTime? AdverseEventEndDate { get; set; }

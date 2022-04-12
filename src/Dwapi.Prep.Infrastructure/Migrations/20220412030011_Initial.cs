@@ -143,7 +143,6 @@ namespace Dwapi.Prep.Infrastructure.Migrations
                     FacilityId = table.Column<Guid>(nullable: false),
                     FacilityName = table.Column<string>(nullable: true),
                     PrepNumber = table.Column<string>(nullable: true),
-                    FacilityID = table.Column<int>(nullable: true),
                     AdverseEvent = table.Column<string>(nullable: true),
                     AdverseEventStartDate = table.Column<DateTime>(nullable: true),
                     AdverseEventEndDate = table.Column<DateTime>(nullable: true),
@@ -155,18 +154,17 @@ namespace Dwapi.Prep.Infrastructure.Migrations
                     AdverseEventCause = table.Column<string>(nullable: true),
                     AdverseEventRegimen = table.Column<string>(nullable: true),
                     Date_Created = table.Column<DateTime>(nullable: true),
-                    Date_Last_Modified = table.Column<DateTime>(nullable: true),
-                    FacilityId1 = table.Column<Guid>(nullable: true)
+                    Date_Last_Modified = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PrepAdverseEvents", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PrepAdverseEvents_Facilities_FacilityId1",
-                        column: x => x.FacilityId1,
+                        name: "FK_PrepAdverseEvents_Facilities_FacilityId",
+                        column: x => x.FacilityId,
                         principalTable: "Facilities",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -377,24 +375,22 @@ namespace Dwapi.Prep.Infrastructure.Migrations
                     FacilityName = table.Column<string>(nullable: true),
                     PrepNumber = table.Column<string>(nullable: true),
                     HtsNumber = table.Column<string>(nullable: true),
-                    FacilityID = table.Column<int>(nullable: true),
                     VisitID = table.Column<int>(nullable: true),
                     RegimenPrescribed = table.Column<string>(nullable: true),
                     DispenseDate = table.Column<DateTime>(nullable: true),
                     Duration = table.Column<decimal>(nullable: true),
                     Date_Created = table.Column<DateTime>(nullable: true),
-                    Date_Last_Modified = table.Column<DateTime>(nullable: true),
-                    FacilityId1 = table.Column<Guid>(nullable: true)
+                    Date_Last_Modified = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PrepPharmacys", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PrepPharmacys_Facilities_FacilityId1",
-                        column: x => x.FacilityId1,
+                        name: "FK_PrepPharmacys_Facilities_FacilityId",
+                        column: x => x.FacilityId,
                         principalTable: "Facilities",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -515,9 +511,9 @@ namespace Dwapi.Prep.Infrastructure.Migrations
                 column: "FacilityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PrepAdverseEvents_FacilityId1",
+                name: "IX_PrepAdverseEvents_FacilityId",
                 table: "PrepAdverseEvents",
-                column: "FacilityId1");
+                column: "FacilityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PrepBehaviourRisks_FacilityId",
@@ -540,9 +536,9 @@ namespace Dwapi.Prep.Infrastructure.Migrations
                 column: "FacilityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PrepPharmacys_FacilityId1",
+                name: "IX_PrepPharmacys_FacilityId",
                 table: "PrepPharmacys",
-                column: "FacilityId1");
+                column: "FacilityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PrepVisits_FacilityId",
