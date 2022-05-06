@@ -110,11 +110,24 @@ namespace Dwapi.Prep
             app.UseRouting();
 
             app.UseSwagger();
-            app.UseSwaggerUI(c =>
+            if (env.IsDevelopment())
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "DWAPI Central PREP API");
-                //c.SupportedSubmitMethods(new Swashbuckle.AspNetCore.SwaggerUI.SubmitMethod[] { });
-            });
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "DWAPI Central PREP API");
+                    //c.SupportedSubmitMethods(new Swashbuckle.AspNetCore.SwaggerUI.SubmitMethod[] { });
+                });
+            }
+            else
+            {
+                app.UseSwaggerUI(c =>
+                {
+                    // Check if it NOT IIS c.SwaggerEndpoint("/swagger/v1/swagger.json", "DWAPI Central PREP API");
+                    c.SwaggerEndpoint("../swagger/v1/swagger.json", "DWAPI Central PREP API");
+                    c.SupportedSubmitMethods(new Swashbuckle.AspNetCore.SwaggerUI.SubmitMethod[] { });
+                });
+            }
+           
 
             app.UseEndpoints(endpoints =>
             {
@@ -135,7 +148,7 @@ namespace Dwapi.Prep
             {
                 app.UseHangfireDashboard();
 
-                var options = new BackgroundJobServerOptions {ServerName  = "DWAPIMNCHMAIN",WorkerCount = 1 };
+                var options = new BackgroundJobServerOptions {ServerName  = "DWAPIPREPMAIN",WorkerCount = 1 };
                 app.UseHangfireServer(options);
                 GlobalJobFilters.Filters.Add(new ProlongExpirationTimeAttribute());
                 GlobalJobFilters.Filters.Add(new AutomaticRetryAttribute() { Attempts = 3 });
