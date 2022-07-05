@@ -195,8 +195,8 @@ namespace Dwapi.Prep.Controllers
                 {
                     name = "Dwapi Central - API (PREP)",
                     status = "running",
-                    version = "v1.0.0.0",
-                    build = "10APR222146"
+                    version = "v1.0.0.1",
+                    build = "05JUL221256"
                 });
             }
             catch (Exception e)
