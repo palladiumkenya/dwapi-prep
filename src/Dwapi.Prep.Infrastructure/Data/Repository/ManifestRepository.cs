@@ -30,6 +30,8 @@ namespace Dwapi.Prep.Infrastructure.Data.Repository
                     DELETE FROM {nameof(PrepContext.PrepLabs)} WHERE {nameof(PrepLab.FacilityId)} in ({ids}) AND {nameof(PrepLab.Project)} <> 'IRDO';
                     DELETE FROM {nameof(PrepContext.PrepPharmacys)} WHERE {nameof(PrepPharmacy.FacilityId)} in ({ids}) AND {nameof(PrepPharmacy.Project)} <> 'IRDO';
                     DELETE FROM {nameof(PrepContext.PrepVisits)} WHERE {nameof(PrepVisit.FacilityId)} in ({ids}) AND {nameof(PrepVisit.Project)} <> 'IRDO';
+                    DELETE FROM {nameof(PrepContext.PrepMonthlyRefills)} WHERE {nameof(PrepMonthlyRefill.FacilityId)} in ({ids}) AND {nameof(PrepMonthlyRefill.Project)} <> 'IRDO';
+
                  "
                 );
 
@@ -57,7 +59,9 @@ namespace Dwapi.Prep.Infrastructure.Data.Repository
                     DELETE FROM {nameof(PrepContext.PrepLabs)} WHERE {nameof(PrepLab.FacilityId)} in ({ids}) AND {nameof(PrepLab.Project)}='{project}';
                     DELETE FROM {nameof(PrepContext.PrepPharmacys)} WHERE {nameof(PrepPharmacy.FacilityId)} in ({ids}) AND {nameof(PrepPharmacy.Project)}='{project}';
                     DELETE FROM {nameof(PrepContext.PrepVisits)} WHERE {nameof(PrepVisit.FacilityId)} in ({ids}) AND {nameof(PrepVisit.Project)}='{project}';
-                 "
+                    DELETE FROM {nameof(PrepContext.PrepMonthlyRefills)} WHERE {nameof(PrepMonthlyRefill.FacilityId)} in ({ids}) AND {nameof(PrepMonthlyRefill.Project)} <> 'IRDO';
+                 
+"
             );
 
             var mids = string.Join(',', manifests.Select(x => $"'{x.Id}'"));

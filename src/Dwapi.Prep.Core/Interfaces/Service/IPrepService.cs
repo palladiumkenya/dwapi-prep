@@ -12,5 +12,7 @@ namespace Dwapi.Prep.Core.Interfaces.Service
         void Process(IEnumerable<PrepLab> extracts);
         void Process(IEnumerable<PrepPharmacy> extracts);
         void Process(IEnumerable<PrepVisit> extracts);
+        void Process(IEnumerable<PrepMonthlyRefill> extracts);
+
     }
 }

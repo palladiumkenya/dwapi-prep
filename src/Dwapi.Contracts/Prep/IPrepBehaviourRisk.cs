@@ -2,7 +2,8 @@ using System;
 
 namespace Dwapi.Contracts.Prep
 {
-    public interface IPrepBehaviourRisk
+    public interface 
+        IPrepBehaviourRisk
     {
         string FacilityName { get; set; }
         string PrepNumber { get; set; }
@@ -28,5 +29,7 @@ namespace Dwapi.Contracts.Prep
         string NumberofchildrenWithPartner { get; set; }
         DateTime? Date_Created { get; set; }
         DateTime? Date_Last_Modified { get; set; }
+        string RecordUUID { get; set; }
+        bool? Voided { get; set; }
     }
 }

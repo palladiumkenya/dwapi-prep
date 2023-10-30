@@ -183,6 +183,24 @@ namespace Dwapi.Prep.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+        
+        
+        [HttpPost("PrepMonthlyRefill")]
+        public IActionResult ProcessPrepMonthlyRefill([FromBody] PrepExtractsDto extract)
+        {
+            if (null == extract) return BadRequest();
+            try
+            {
+                var id = BackgroundJob.Enqueue(() => _prepService.Process(extract.PrepMonthlyRefillExtracts));
+                return Ok(new {BatchKey = id});
+            }
+            catch (Exception e)
+            {
+                Log.Error(e, "PrepMonthlyRefill error");
+                return StatusCode(500, e.Message);
+            }
+        }
+
 
         // POST api/Prep/Status
         [HttpGet("Status")]

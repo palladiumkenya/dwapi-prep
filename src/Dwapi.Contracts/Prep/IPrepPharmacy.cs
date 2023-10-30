@@ -13,5 +13,7 @@ namespace Dwapi.Contracts.Prep
         decimal? Duration { get; set; }
         DateTime? Date_Created { get; set; }
         DateTime? Date_Last_Modified { get; set; }
+        string RecordUUID { get; set; }
+        bool? Voided { get; set; }
     }
 }

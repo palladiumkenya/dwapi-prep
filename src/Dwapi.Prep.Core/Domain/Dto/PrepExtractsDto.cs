@@ -12,5 +12,7 @@ namespace Dwapi.Prep.Core.Domain.Dto
         public List<PrepLab> PrepLabExtracts { get; set; } = new List<PrepLab>();
         public List<PrepPharmacy> PrepPharmacyExtracts { get; set; } = new List<PrepPharmacy>();
         public List<PrepVisit> PrepVisitExtracts { get; set; } = new List<PrepVisit>();
+        public List<PrepMonthlyRefill> PrepMonthlyRefillExtracts { get; set; } = new List<PrepMonthlyRefill>();
+
     }
 }

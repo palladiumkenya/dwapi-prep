@@ -23,6 +23,8 @@ namespace Dwapi.Prep.Infrastructure.Data
         public DbSet<PrepLab> PrepLabs { get; set; }
         public DbSet<PrepPharmacy> PrepPharmacys { get; set; }
         public DbSet<PrepVisit> PrepVisits { get; set; }
+        public DbSet<PrepMonthlyRefill> PrepMonthlyRefills{ get; set; }
+
 
 
         public PrepContext(DbContextOptions<PrepContext> options) : base(options)
@@ -45,6 +47,8 @@ namespace Dwapi.Prep.Infrastructure.Data
             DapperPlusManager.Entity<PrepLab>().Key(x => x.Id).Table($"{nameof(PrepContext.PrepLabs)}");
             DapperPlusManager.Entity<PrepPharmacy>().Key(x => x.Id).Table($"{nameof(PrepContext.PrepPharmacys)}");
             DapperPlusManager.Entity<PrepVisit>().Key(x => x.Id).Table($"{nameof(PrepContext.PrepVisits)}");
+            DapperPlusManager.Entity<PrepMonthlyRefill>().Key(x => x.Id).Table($"{nameof(PrepContext.PrepMonthlyRefills)}");
+
         }
 
         public override void EnsureSeeded()
