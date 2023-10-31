@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dwapi.Prep.Infrastructure.Migrations
 {
     [DbContext(typeof(PrepContext))]
-    [Migration("20231029184018_AddedPrepMonthlyRefill")]
+    [Migration("20231031150239_AddedPrepMonthlyRefill")]
     partial class AddedPrepMonthlyRefill
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
