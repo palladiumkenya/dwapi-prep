@@ -24,6 +24,7 @@ namespace Dwapi.Prep.Core.Domain
         public virtual ICollection<PrepLab> PrepLabs { get; set; } = new List<PrepLab>();
         public virtual ICollection<PrepPharmacy> PrepPharmacys { get; set; } = new List<PrepPharmacy>();
         public virtual ICollection<PrepVisit> PrepVisits { get; set; } = new List<PrepVisit>();
+        public virtual ICollection<PrepMonthlyRefill> PrepMonthlyRefill { get; set; } = new List<PrepMonthlyRefill>();
 
 
         public ICollection<Manifest> Manifests { get; set; }=new List<Manifest>();

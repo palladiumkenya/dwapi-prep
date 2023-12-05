@@ -69,6 +69,7 @@ namespace Dwapi.Prep
             services.AddScoped<IPrepLabRepository, PrepLabRepository>();
             services.AddScoped<IPrepPharmacyRepository, PrepPharmacyRepository>();
             services.AddScoped<IPrepVisitRepository, PrepVisitRepository>();
+            services.AddScoped<IPrepMonthlyRefillRepository, PrepMonthlyRefillRepository>();
 
             services.AddScoped<IManifestService, ManifestService>();
             services.AddScoped<IPrepService, PrepService>();

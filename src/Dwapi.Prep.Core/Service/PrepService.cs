@@ -21,13 +21,15 @@ namespace Dwapi.Prep.Core.Service
         private readonly IPrepLabRepository _prepLabRepository;
         private readonly IPrepPharmacyRepository _prepPharmacyRepository;
         private readonly IPrepVisitRepository _prepVisitRepository;
+        private readonly IPrepMonthlyRefillRepository _prepMonthlyRefillRepository;
+
         private List<SiteProfile> _siteProfiles = new List<SiteProfile>();
 
         public PrepService(ILiveSyncService syncService, IFacilityRepository facilityRepository,
             IPatientPrepRepository patientPrepRepository, IPrepAdverseEventRepository prepAdverseEventRepository,
             IPrepBehaviourRiskRepository prepBehaviourRiskRepository,
             IPrepCareTerminationRepository prepCareTerminationRepository, IPrepLabRepository prepLabRepository,
-            IPrepPharmacyRepository prepPharmacyRepository, IPrepVisitRepository prepVisitRepository)
+            IPrepPharmacyRepository prepPharmacyRepository, IPrepVisitRepository prepVisitRepository, IPrepMonthlyRefillRepository prepMonthlyRefillRepository)
         {
             _syncService = syncService;
             _facilityRepository = facilityRepository;
@@ -38,6 +40,7 @@ namespace Dwapi.Prep.Core.Service
             _prepLabRepository = prepLabRepository;
             _prepPharmacyRepository = prepPharmacyRepository;
             _prepVisitRepository = prepVisitRepository;
+            _prepMonthlyRefillRepository = prepMonthlyRefillRepository;
         }
 
         public void Process(IEnumerable<PatientPrep> patients)
@@ -321,6 +324,46 @@ namespace Dwapi.Prep.Core.Service
             SyncClients(facilityIds);
         }
 
+        public void Process(IEnumerable<PrepMonthlyRefill> extracts)
+        {
+            List<Guid> facilityIds = new List<Guid>();
+            if (null == extracts)
+                return;
+            if (!extracts.Any())
+                return;
+            _siteProfiles = _facilityRepository.GetSiteProfiles().ToList();
+            var batch = new List<PrepMonthlyRefill>();
+            int count = 0;
+            foreach (var extract in extracts)
+            {
+                count++;
+                try
+                {
+                    extract.FacilityId = GetFacilityId(extract.SiteCode);
+                    extract.UpdateRefId();
+                    batch.Add(extract);
+                    facilityIds.Add(extract.FacilityId);
+                }
+                catch (Exception e)
+                {
+                    Log.Error(e, $"Facility Id missing {extract.SiteCode}");
+                }
+
+
+                if (count == 1000)
+                {
+                    _prepMonthlyRefillRepository.CreateBulk(batch);
+                    count = 0;
+                    batch = new List<PrepMonthlyRefill>();
+                }
+            }
+
+            if (batch.Any())
+                _prepMonthlyRefillRepository.CreateBulk(batch);
+            SyncClients(facilityIds);
+        }
+
+        
         public Guid GetFacilityId(int siteCode)
         {
             var profile = _siteProfiles.FirstOrDefault(x => x.SiteCode == siteCode);
