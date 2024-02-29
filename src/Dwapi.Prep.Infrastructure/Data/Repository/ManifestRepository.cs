@@ -9,6 +9,7 @@ using Dwapi.Prep.Core.Interfaces.Repository;
 using Dwapi.Prep.SharedKernel.Enums;
 using Dwapi.Prep.SharedKernel.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 
 namespace Dwapi.Prep.Infrastructure.Data.Repository
 {
@@ -116,6 +117,22 @@ namespace Dwapi.Prep.Infrastructure.Data.Repository
             {
                 Id = x.Id, End = x.End, Session = x.Session, Start = x.Start
             });
+        }
+        
+        public string GetDWAPIversionSending(int siteCode)
+        {
+            var ctt = Context as PrepContext;
+            var manifests = DbSet.AsNoTracking().Where(x => x.Status == ManifestStatus.Staged && x.SiteCode == siteCode)
+                .ToList();
+        
+            foreach (var manifest in manifests)
+            {
+                manifest.Cargoes = ctt.Cargoes.AsNoTracking()
+                    .Where(x => x.Type != CargoType.Patient && x.ManifestId == manifest.Id).ToList();
+            }
+            var version = manifests.Select(o => o.Cargoes).Select(x =>  x.Where(m => m.Items.Contains("HivTestingService"))).FirstOrDefault().ToList()[0].Items;
+            
+            return JObject.Parse(version)["Version"].ToString();
         }
     }
 }
